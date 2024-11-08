@@ -1,7 +1,15 @@
-import React from 'react'
+import Navbar from "@features/navbar/Navbar";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function homePage() {
-  return <div>home</div>;
+  return (
+    <Box>
+      <Navbar />
+      <Box>
+        <Stack>
+          <Typography>Mint is an app for ....</Typography>
+        </Stack>
+      </Box>
+    </Box>
+  );
 }
-
-home
