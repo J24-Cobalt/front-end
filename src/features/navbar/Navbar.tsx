@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Stack } from "@mui/material";
 import { Colors } from "@app/styles";
+import LoginModal from "@features/landingPage/components/LoginModal";
+import SignupModal from "@features/landingPage/components/SignupModal";
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
@@ -67,9 +69,11 @@ export default function navbar() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton sx={{ p: 0 }} href="/profile">
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-            </IconButton>
+              <IconButton sx={{ p: 0 }}>
+                <LoginModal />
+                <SignupModal />
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{ display: "none" }} />
+              </IconButton>
           </Box>
         </Toolbar>
       </Container>
