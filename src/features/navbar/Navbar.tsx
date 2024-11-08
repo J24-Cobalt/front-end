@@ -6,41 +6,26 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Stack } from "@mui/material";
+import { Colors } from "@app/styles";
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
 export default function navbar() {
   return (
     <Stack
-      sx={{ flexDirection: "row", height: "80px", backgroundColor: "black" }}
+      sx={{
+        flexDirection: "row",
+        height: "80px",
+        backgroundColor: Colors.secondaryBlack,
+      }}
       alignItems={"center"}
       justifyContent={"space-between"}
-      
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: "flex",
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-
+          <AdbIcon sx={{ display: "flex", mr: 1, color: "white" }} />
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -82,11 +67,9 @@ export default function navbar() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <IconButton sx={{ p: 0 }} href="/profile">
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+            </IconButton>
           </Box>
         </Toolbar>
       </Container>

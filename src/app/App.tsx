@@ -1,8 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./config/AppRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./styles/theme";
 import "./App.css";
+import AppRouter from "./routes/components/AppRouter";
 
 function App() {
   return (
