@@ -6,9 +6,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Stack } from "@mui/material";
+import LoginModal from "@features/landingPage/components/LoginModal";
+import { Sign } from "crypto";
+import SignupModal from "@features/landingPage/components/SignupModal";
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
@@ -82,11 +84,11 @@ export default function navbar() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <LoginModal />
+                <SignupModal />
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{ display: "none" }} />
               </IconButton>
-            </Tooltip>
           </Box>
         </Toolbar>
       </Container>
