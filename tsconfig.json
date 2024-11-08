@@ -26,7 +26,7 @@
       "@app/*": ["src/app/*"],
       "@pages/*": ["src/pages/*"],
       "@features/*": ["src/features/*"],
-      "@config/*": ["src/app/config/*"]
+      "@config/*": ["src/app/routes/*"]
     }
   },
   "include": ["src", "src/features/trip/hooks/.ts"],
