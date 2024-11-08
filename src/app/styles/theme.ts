@@ -2,7 +2,6 @@ import { type LinkProps, createTheme } from "@mui/material";
 import { FontFamilies } from "./FontFamilies";
 import { FontWeights } from "./FontWeights";
 import LinkBehavior from "./LinkBehavior";
-import { Colors } from "./Colors";
 
 const theme = createTheme({
   palette: {
@@ -10,15 +9,8 @@ const theme = createTheme({
       main: "#729E65",
     },
     text: {
-      primary: "#223644",
+      primary: "#000000",
       secondary: "#64727C",
-    },
-    grey: {
-      [100]: "#F9F9F9",
-      [200]: "#EAEAEA",
-    },
-    error: {
-      main: "#EB5757",
     },
   },
   components: {
@@ -32,46 +24,10 @@ const theme = createTheme({
         },
       },
     },
-    MuiFormControl: {
-      defaultProps: {
-        sx: {
-          mb: 0,
-          mt: 0,
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          fontSize: "0.875rem",
-          lineHeight: "1.313rem",
-          fontFamily: FontFamilies.roboto,
-        },
-      },
-    },
     MuiLink: {
       defaultProps: {
         component: LinkBehavior,
       } as LinkProps,
-    },
-    MuiButton: {
-      styleOverrides: {
-        startIcon: {
-          "& svg": {
-            fontSize: "1.5 !important",
-          },
-        },
-        endIcon: {
-          "& svg": {
-            fontSize: "1.5 !important",
-          },
-        },
-      },
-    },
-    MuiButtonBase: {
-      defaultProps: {
-        LinkComponent: LinkBehavior,
-      },
     },
   },
 });

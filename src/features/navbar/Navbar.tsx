@@ -1,4 +1,3 @@
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -9,12 +8,18 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
+import { Stack } from "@mui/material";
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
 export default function navbar() {
   return (
-    <AppBar position="static">
+    <Stack
+      sx={{ flexDirection: "row", height: "80px", backgroundColor: "black" }}
+      alignItems={"center"}
+      justifyContent={"space-between"}
+      
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -25,7 +30,7 @@ export default function navbar() {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: "flex",
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -85,6 +90,6 @@ export default function navbar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </Stack>
   );
 }

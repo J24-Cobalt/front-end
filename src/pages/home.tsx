@@ -1,14 +1,15 @@
 import Navbar from "@features/navbar/Navbar";
-import { Box } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function homePage() {
   return (
-    <Box
-      sx={{ mx: "auto", margin: "auto", width: "100%" }}
-      justifyContent={"center"}
-      alignContent={"center"}
-    >
+    <Box>
       <Navbar />
+      <Box>
+        <Stack>
+          <Typography>Mint is an app for ....</Typography>
+        </Stack>
+      </Box>
     </Box>
   );
 }
