@@ -1,26 +1,30 @@
-import { Box, Typography, Stack, Card, CardContent } from "@mui/material";
+import { Box, Typography, Stack, Card, CardContent, Avatar } from "@mui/material";
 
-export default function userProfile() {
+export default function UserProfile() {
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: 1200,
+        maxWidth: 1400,
         margin: "auto",
         padding: 4,
-        bgcolor: "#f9f9f9",
-        boxShadow: 3,
-        borderRadius: 2,
       }}
     >
-      {/* Name and Title Stack */}
-      <Stack spacing={1} mb={4} direction="column" alignItems="center">
-        <Typography variant="h4" fontWeight="bold">
-          John Doe
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          Senior Software Engineer
-        </Typography>
+      {/* Profile Header with Avatar, Name, and Title */}
+      <Stack direction="row" spacing={2} alignItems="center" mb={4}>
+        <Avatar
+          alt="John Doe"
+          src="/path/to/avatar.jpg"
+          sx={{ width: 80, height: 80 }}
+        />
+        <Stack direction="column" spacing={0.5}>
+          <Typography variant="h4" fontWeight="bold">
+            John Doe
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            Senior Software Engineer
+          </Typography>
+        </Stack>
       </Stack>
 
       {/* Stack of Priority and Work Experience */}

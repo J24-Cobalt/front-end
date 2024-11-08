@@ -3,6 +3,8 @@ import HomePage from "@pages/home";
 import Profile from "@pages/profile";
 import ProtectedRoute from "./ProtectedRoute";
 import AccountLayout from "@features/ui/AccountSidebar/AccountLayout";
+import Applications from "@pages/applications";
+import Applicants from "@pages/applications";
 
 export default function AppRouter() {
   return (
@@ -19,8 +21,8 @@ export default function AppRouter() {
       >
         <Route path={"/profile"} element={<Profile />} />
         {/*<Route path={"/matching"} element={< />} />*/}
-        {/*<Route path={"/applications"} element={< />} />*/}
-        {/*<Route path={"/applicants"} element={< />} />*/}
+        <Route path={"/applications"} element={<Applications/>} />
+        <Route path={"/applicants"} element={<Applicants/>} />
         {/*<Route path={"/profile"} element={< />} />*/}
       </Route>
     </Routes>

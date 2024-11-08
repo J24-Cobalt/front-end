@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
-  Avatar,
   Box,
   ButtonBase,
+  Divider,
   List,
   ListItem,
   ListItemButton,
@@ -25,7 +25,9 @@ interface Props {
 
 export default function AccountSidebar({ isMinimized, onClose }: Props) {
   //const user = useAppSelector(selectUser);
+  //const isCompany = useAppSelector(selectIsCompany);
   //const userInitial = user?.displayName?.split(" ")[0][0];
+  const isCompany = true;
 
   const onLinkClick = () => {
     onClose();
@@ -45,7 +47,16 @@ export default function AccountSidebar({ isMinimized, onClose }: Props) {
       }}
     >
       <Box>
-        <Box mb={6} alignItems={"center"} justifyContent="center">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: 60,
+            width: "100%",
+            gap: 2.5,
+          }}
+        >
           <AdbIcon
             sx={{
               display: "flex",
@@ -56,65 +67,63 @@ export default function AccountSidebar({ isMinimized, onClose }: Props) {
             }}
           />
         </Box>
-        <Stack
-          direction="row"
-          alignItems="center"
-          mb={4}
-          gap={3}
-          justifyContent={isMinimized ? "center" : "flex-start"}
-        >
-          <Avatar sx={{ height: 48, width: 48, background: Colors.disabled }}>
-            {/*userInitial*/}
-          </Avatar>
-          {!isMinimized && <Typography variant="body1">Sebastian</Typography>}
-        </Stack>
         <List>
-          {ACCOUNT_LINKS.map(({ Icon, text, path }) => (
-            <ListItem key={text} disablePadding>
-              <NavLink
-                to={path}
-                style={{
-                  width: "100%",
+          {ACCOUNT_LINKS.map(({ Icon, text, path, divider }) => {
+            // Modify "Applications" link for company users
+            const displayText =
+              isCompany && text === "Applications" ? "Applicants" : text;
+            const displayPath =
+              isCompany && text === "Applications" ? "/applicants" : path;
 
-                  textDecoration: "none",
-                }}
-                onClick={onLinkClick}
-              >
-                {({ isActive }) => (
-                  <ListItemButton
-                    sx={{
-                      background: isActive
-                        ? Colors.secondaryGreen
-                        : "transparent",
-                      borderRadius: 2,
-                      color: isActive
-                        ? theme.palette.primary.main
-                        : theme.palette.text.primary,
-                      mb: 1,
-                      px: isMinimized ? 1 : 2,
-                      justifyContent: isMinimized ? "center" : "flex-start",
+            return (
+              <>
+                <ListItem key={text} disablePadding>
+                  <NavLink
+                    to={displayPath}
+                    style={{
+                      width: "100%",
+                      textDecoration: "none",
                     }}
+                    onClick={onLinkClick}
                   >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: isMinimized ? "inherit" : 56,
-                        color: isActive
-                          ? theme.palette.primary.main
-                          : theme.palette.text.secondary,
-                      }}
-                    >
-                      <Icon fontSize="large" />
-                    </ListItemIcon>
-                    {!isMinimized && (
-                      <Typography variant={isActive ? "body2" : "body1"}>
-                        {text}
-                      </Typography>
+                    {({ isActive }) => (
+                      <ListItemButton
+                        sx={{
+                          background: isActive
+                            ? Colors.secondaryGreen
+                            : "transparent",
+                          borderRadius: 2,
+                          color: isActive
+                            ? theme.palette.primary.main
+                            : theme.palette.text.primary,
+                          mb: 1,
+                          px: isMinimized ? 1 : 2,
+                          justifyContent: isMinimized ? "center" : "flex-start",
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: isMinimized ? "inherit" : 56,
+                            color: isActive
+                              ? theme.palette.primary.main
+                              : theme.palette.text.secondary,
+                          }}
+                        >
+                          <Icon fontSize="large" />
+                        </ListItemIcon>
+                        {!isMinimized && (
+                          <Typography variant={isActive ? "body2" : "body1"}>
+                            {displayText}
+                          </Typography>
+                        )}
+                      </ListItemButton>
                     )}
-                  </ListItemButton>
-                )}
-              </NavLink>
-            </ListItem>
-          ))}
+                  </NavLink>
+                </ListItem>
+                {divider && <Divider sx={{ my: 1 }} />}
+              </>
+            );
+          })}
         </List>
       </Box>
       <ButtonBase
