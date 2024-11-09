@@ -1,9 +1,5 @@
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -11,72 +7,99 @@ import { Stack } from "@mui/material";
 import { Colors } from "@app/styles";
 import LoginModal from "@features/landingPage/components/LoginModal";
 import SignupModal from "@features/landingPage/components/SignupModal";
+import AppButton from "@features/ui/AppButton";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@app/store/store"; // import RootState to access Redux state
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
-export default function navbar() {
+export default function Navbar() {
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [signupModalOpen, setSignupModalOpen] = useState(false);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const isAuthenticated = Boolean(user);
+
+  const openLoginModal = () => setLoginModalOpen(true);
+  const closeLoginModal = () => setLoginModalOpen(false);
+
+  const openSignupModal = () => setSignupModalOpen(true);
+  const closeSignupModal = () => setSignupModalOpen(false);
+
   return (
-    <Stack
+    <Box
       sx={{
-        flexDirection: "row",
         height: "80px",
+        width: "100%",
         backgroundColor: Colors.secondaryBlack,
+        px: 4,
       }}
-      alignItems={"center"}
-      justifyContent={"space-between"}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: "flex", mr: 1, color: "white" }} />
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ height: "100%" }}
+      >
+        {/* Logo and menu items */}
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <AdbIcon sx={{ color: "white" }} />
           <Typography
             variant="h5"
-            noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="#"
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
+              color: "white",
+              fontWeight: "bold",
               textDecoration: "none",
+              mr: 2,
             }}
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Stack direction="row" spacing={2}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
+              <Button key={page} sx={{ color: "white" }}>
                 {page}
               </Button>
             ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-              <IconButton sx={{ p: 0 }}>
-                <LoginModal />
-                <SignupModal />
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{ display: "none" }} />
-              </IconButton>
-          </Box>
-        </Toolbar>
-      </Container>
-    </Stack>
+          </Stack>
+        </Stack>
+
+        {/* Authentication buttons or avatar */}
+        <Stack direction="row" spacing={2}>
+          {!isAuthenticated ? (
+            <>
+              <AppButton
+                variant="contained"
+                color="primary"
+                onClick={openLoginModal}
+                isSmall
+                sx={{ px: 3 }}
+              >
+                Login
+              </AppButton>
+              <AppButton
+                variant="outlined"
+                color="primary"
+                onClick={openSignupModal}
+                isSmall
+                sx={{ px: 3 }}
+              >
+                Sign Up
+              </AppButton>
+            </>
+          ) : (
+            <AppButton href="/profile" variant="outlined">
+              <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+            </AppButton>
+          )}
+        </Stack>
+      </Stack>
+
+      <LoginModal open={loginModalOpen} onClose={closeLoginModal} />
+      <SignupModal open={signupModalOpen} onClose={closeSignupModal} />
+    </Box>
   );
 }

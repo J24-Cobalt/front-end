@@ -1,5 +1,6 @@
 #root {
-  width: 1920px;
+  width: 100vw; /* Use 100% of the viewport width */
   min-height: 100vh;
   padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
