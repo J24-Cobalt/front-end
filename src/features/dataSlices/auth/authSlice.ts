@@ -1,7 +1,12 @@
 // authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { fetchUserData, loginUser, registerUser } from "@app/services/api/auth";
-import { CompanyData, UserData } from "@features/types";
+import {
+  fetchHasMatchedData,
+  fetchUserData,
+  loginUser,
+  registerUser,
+} from "@app/services/api/auth";
+import { CompanyData, HasMatched, UserData } from "@features/types";
 
 export interface UserAuth {
   id: string;
@@ -14,9 +19,10 @@ export interface UserAuth {
 interface AuthState {
   isAuthenticated: boolean;
   user: UserAuth | null;
-  userType: "applicant" | "company" | null; // Track the user type in state
-  userData: UserData | null; // User-specific data
-  companyData: CompanyData | null; // Company-specific data
+  userType: "applicant" | "company" | null;
+  userData: UserData | null;
+  companyData: CompanyData | null;
+  matchedCompanies: HasMatched[] | null; // Store matched companies here
   loading: boolean;
   error: string | null;
 }
@@ -57,15 +63,20 @@ export const register = createAsyncThunk<
   }
 );
 
-// Async thunk for loading user data
+// Async thunk for loading user data and matched companies
 export const loadUserData = createAsyncThunk<
-  UserData | CompanyData,
+  { userData: UserData | CompanyData; matchedCompanies: HasMatched[] },
   { email: string; userType: "applicant" | "company" },
   { rejectValue: string }
 >("auth/loadUserData", async ({ email, userType }, thunkAPI) => {
   try {
-    const data = await fetchUserData(email, userType);
-    return data;
+    // Initiate both requests at the same time
+    const [userData, matchedCompanies] = await Promise.all([
+      fetchUserData(email, userType),
+      fetchHasMatchedData(email),
+    ]);
+
+    return { userData, matchedCompanies }; // Return both pieces of data
   } catch (error) {
     return thunkAPI.rejectWithValue(`Failed to load user data: ${error}`);
   }
@@ -74,9 +85,10 @@ export const loadUserData = createAsyncThunk<
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
-  userType: null, // Initialize userType as null
+  userType: null,
   userData: null,
   companyData: null,
+  matchedCompanies: null, // Initialize as null
   loading: false,
   error: null,
 };
@@ -91,6 +103,7 @@ const authSlice = createSlice({
       state.userType = null;
       state.userData = null;
       state.companyData = null;
+      state.matchedCompanies = null;
       state.error = null;
       localStorage.removeItem("authToken");
     },
@@ -138,13 +151,22 @@ const authSlice = createSlice({
       })
       .addCase(
         loadUserData.fulfilled,
-        (state, action: PayloadAction<UserData | CompanyData>) => {
+        (
+          state,
+          action: PayloadAction<{
+            userData: UserData | CompanyData;
+            matchedCompanies: HasMatched[];
+          }>
+        ) => {
           state.loading = false;
           state.error = null;
+          const { userData, matchedCompanies } = action.payload;
+
           if (state.userType === "applicant") {
-            state.userData = action.payload as UserData;
+            state.userData = userData as UserData;
+            state.matchedCompanies = matchedCompanies;
           } else if (state.userType === "company") {
-            state.companyData = action.payload as CompanyData;
+            state.companyData = userData as CompanyData;
           }
         }
       )

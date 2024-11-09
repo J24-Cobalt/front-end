@@ -1,5 +1,5 @@
 // auth.ts
-import { CompanyData, UserData } from "@features/types";
+import { CompanyData, HasMatched, UserData } from "@features/types";
 import axios from "axios";
 
 const API_BASE_URL = "http://127.0.0.1:8001";
@@ -66,5 +66,20 @@ export const fetchUserData = async (email: string, userType: "applicant" | "comp
     return response.data as UserData | CompanyData;
   } catch (error) {
     throw new Error(`Failed to fetch user data: ${error}`);
+  }
+};
+
+// Fetch only has_matched data by email
+export const fetchHasMatchedData = async (email: string): Promise<HasMatched[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/matching/applicant/${email}`);
+    const hasMatchedData = response.data || []; // Access data directly from response
+    console.log(hasMatchedData);
+
+    // Ensure the result is an array of matched companies
+    return hasMatchedData as HasMatched[];
+  } catch (error) {
+    console.error(`Failed to fetch matched companies: ${error}`);
+    throw new Error(`Failed to fetch matched companies: ${error}`);
   }
 };

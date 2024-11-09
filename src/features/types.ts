@@ -10,6 +10,7 @@ export interface UserAuth {
 // Top-level interface for user data
 export interface UserData {
   authData: UserAuth[];
+  data: data[];
   id: string;
   fullname: string;
   email: string;
@@ -22,9 +23,33 @@ export interface UserData {
   work_experience: WorkExperience[];
   education: Education[];
   skills: string[];
-  mental_profile: MentalProfile;
+  sdt_profile: SdtProfile; // Renamed here
   cv: string;
   applications: Applications;
+}
+
+export interface data {
+  id: string;
+  name: string;
+  fullname: string;
+  email: string;
+  years_of_employment: number;
+  employment_status: "employed" | "unemployed" | "self-employed" | string;
+  age: number;
+  gender: "Male" | "Female" | "Other" | string;
+  intro: string;
+  avatar: string;
+  work_experience: WorkExperience[];
+  education: Education[];
+  skills: string[];
+  sdt_profile: SdtProfile; // Renamed here
+  cv: string;
+  applications: Applications;
+  culture_metric: CultureMetric;
+  jobs: Job[];
+  logo: string;
+  description: string;
+  hasMatched: HasMatched[];
 }
 
 // Interface for work experience entries
@@ -45,8 +70,8 @@ export interface Education {
   score: number;
 }
 
-// Interface for the mental profile, assuming dynamic keys with string values
-export interface MentalProfile {
+// Updated interface for SDT Profile
+export interface SdtProfile {
   [key: string]: string;
 }
 
@@ -55,9 +80,26 @@ export interface Applications {
   [key: string]: string; // Example: {"1": "yes"} or {"Alphasense": "yes"}
 }
 
+// HasMatched interface for matched companies
+export interface HasMatched {
+  iscompany: boolean;
+  logo: string;
+  name: string;
+  email: string;
+  password: string;
+  culture_metric: CultureMetric;
+  jobs: Job[];
+  description: string;
+  location: string;
+}
+
 // Company data interface
 export interface CompanyData {
   authData: UserAuth[];
+  data: data[];
+  name: string;
+  email: string;
+  password: string;
   culture_metric: CultureMetric;
   jobs: Job[];
   logo: string;
