@@ -1,13 +1,11 @@
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Container,
   Grid,
   Typography,
   ThemeProvider,
-  createTheme,
   Chip,
 } from '@mui/material';
 import Navbar from '@features/navbar/Navbar';
@@ -18,50 +16,8 @@ import {
   AutoAwesomeOutlined,
   ArrowForwardOutlined,
 } from '@mui/icons-material';
-
-// Create a custom theme with mint colors
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#34d399', // emerald-400
-      light: '#a7f3d0', // emerald-200
-      dark: '#059669', // emerald-600
-    },
-    background: {
-      default: '#f0fdf4', // emerald-50
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: '3.5rem',
-      fontWeight: 700,
-      lineHeight: 1.2,
-    },
-    h6: {
-      fontWeight: 600,
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: '8px',
-          padding: '10px 24px',
-          textTransform: 'none',
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: '16px',
-          background: 'rgba(255, 255, 255, 0.8)',
-          backdropFilter: 'blur(10px)',
-        },
-      },
-    },
-  },
-});
+import theme from '../../app/styles/theme';
+import AppButton from '../ui/AppButton';
 
 interface FeatureCardProps {
   icon: React.ElementType;
@@ -84,7 +40,7 @@ const FeatureCard = ({ icon: Icon, title, description }: FeatureCardProps) => (
           mb: 2,
         }}
       >
-        <Icon sx={{ color: 'primary.main' }} />
+        <Icon sx={{ color: 'white' }} />
       </Box>
       <Typography variant="h6" gutterBottom>
         {title}
@@ -100,7 +56,7 @@ const LandingPage = () => {
   const features = [
     {
       icon: ShieldOutlined,
-      title: 'Anonymous First',
+      title: 'Anonymity First',
       description: 'Your identity remains private until you choose to reveal it.',
     },
     {
@@ -126,14 +82,14 @@ const LandingPage = () => {
       <Box
         sx={{
           minHeight: '100vh',
-          background: `linear-gradient(135deg, ${theme.palette.background.default}, white)`,
+          background: `linear-gradient(360deg, ${theme.palette.primary.main}, white)`,
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* Background blur circle */}
+        {/* Main background blur circle */}
         <Box
           sx={{
             position: 'absolute',
@@ -148,6 +104,34 @@ const LandingPage = () => {
           }}
         />
 
+        {/* Secondary background circle */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '20%',
+            right: '10%',
+            width: '400px',
+            height: '400px',
+            background: `radial-gradient(circle, ${theme.palette.primary.light}30, transparent)`,
+            filter: 'blur(70px)',
+            zIndex: 0,
+          }}
+        />
+
+        {/* Third background circle */}
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '5%',
+            width: '300px',
+            height: '300px',
+            background: `radial-gradient(circle, ${theme.palette.primary.light}20, transparent)`,
+            filter: 'blur(60px)',
+            zIndex: 0,
+          }}
+        />
+
         <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
           <Grid container spacing={4}>
             {/* Left Column - Hero Content */}
@@ -157,39 +141,47 @@ const LandingPage = () => {
                   icon={<AutoAwesomeOutlined />}
                   label="Anonymous Matching Platform"
                   sx={{
-                    bgcolor: 'primary.light',
-                    color: 'primary.dark',
+                    bgcolor: `${theme.palette.primary.light}30`,
+                    color: theme.palette.primary.dark,
                     mb: 3,
                   }}
                 />
               </Box>
-              
+
               <Typography variant="h1" gutterBottom>
                 Where <Box component="span" sx={{ color: 'primary.main' }}>well-being</Box>
                 <br />shapes your career
               </Typography>
-              
+
               <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
                 Connect with companies that share your values and prioritize work-life balance.
               </Typography>
 
-              <Box sx={{ mb: 6 }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  endIcon={<ArrowForwardOutlined />}
-                  sx={{ mr: 2 }}
-                >
-                  Match Now
-                </Button>
-                <Button
+              <Box sx={{ mb: 6, display: 'flex', gap: 2 }}>
+                <AppButton
                   variant="outlined"
                   color="primary"
-                  size="large"
+                  endIcon={<ArrowForwardOutlined />}
+                  sx={{
+                    bgcolor: 'white',
+                    color: theme.palette.primary.main,
+                    borderColor: theme.palette.primary.main,
+                  }}
+                >
+                  Match Now
+                </AppButton>
+                
+                <AppButton
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    bgcolor: 'black',
+                    color: `rgba(${theme.palette.primary.main}, 0.8)`,
+                    borderColor: 'black',
+                  }}
                 >
                   For Companies
-                </Button>
+                </AppButton>
               </Box>
 
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
