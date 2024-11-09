@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
 import mintLogo from '../../assets/mint-logo.png'; 
 
-const pages = ["Home", "Improving", "Wellbeing"];
+const pages = ["Home"];
 
 export default function Navbar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -69,7 +69,7 @@ export default function Navbar() {
             }}
           />
           <Typography
-            variant="h5"
+            variant="h4"
             component="a"
             href="#"
             sx={{
@@ -81,13 +81,6 @@ export default function Navbar() {
           >
             Mint
           </Typography>
-          <Stack direction="row" spacing={2}>
-            {pages.map((page) => (
-              <Button key={page} sx={{ color: "white" }}>
-                {page}
-              </Button>
-            ))}
-          </Stack>
         </Stack>
 
         {/* Authentication buttons or avatar */}
