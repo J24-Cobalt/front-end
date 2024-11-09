@@ -14,11 +14,10 @@ export default function AnonymizedUserProfile({ profile }: { profile: Profile })
     <Box
       sx={{
         width: '100%',
-        maxWidth: 1200,
-        height: '80vh',
+        maxWidth: '95%',
         margin: 'auto',
         padding: 4,
-        bgcolor: '#f9f9f9',
+
         boxShadow: 3,
         borderRadius: 2,
       }}
