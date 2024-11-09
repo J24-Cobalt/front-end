@@ -91,7 +91,7 @@ export default function Navbar() {
               </AppButton>
             </>
           ) : (
-            <AppButton href="/profile" variant="outlined">
+            <AppButton href="/profile" variant="text">
               <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
             </AppButton>
           )}
