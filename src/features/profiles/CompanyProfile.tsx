@@ -7,6 +7,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  Rating,
+  CardContent,
+  Button,
   Divider,
 } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -17,6 +20,8 @@ export default function CompanyProfile() {
   const companyData = useSelector(
     (state: RootState) => state.auth.companyData?.data[0]
   );
+
+  const sdtProfile = companyData?.sdt_profile || {};
 
   return (
     <Box
@@ -40,34 +45,37 @@ export default function CompanyProfile() {
         </Stack>
       </Stack>
 
-      {/* Culture Metrics and Jobs */}
+      {/* Stack of SDT Profile Ratings and Work Experience */}
       <Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
-        {/* Culture Metric Card */}
-        <Card sx={{ flex: 1, minHeight: 180 }}>
-          <Box sx={{ padding: 2 }}>
+        {/* SDT Profile Card with Rating */}
+        <Card sx={{ flex: 2, maxHeight: 220, overflowY: "auto" }}>
+          <CardContent>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              Culture Metrics
+              SDT Profile
             </Typography>
-            <List>
-              {companyData?.culture_metric
-                ? Object.entries(companyData.culture_metric).map(
-                    ([key, value]) => (
-                      <ListItem key={key} disablePadding>
-                        <ListItemText
-                          primary={key}
-                          secondary={value}
-                          primaryTypographyProps={{ fontWeight: "bold" }}
-                        />
-                      </ListItem>
-                    )
-                  )
-                : "No culture metrics available."}
-            </List>
-          </Box>
+            {Object.entries(sdtProfile).map(([trait, value]) => (
+              <Box
+                key={trait}
+                sx={{ display: "flex", alignItems: "center", mb: 1 }}
+              >
+                <Typography variant="body2" textAlign="center">
+                  {trait
+                    .replace(/_/g, " ")
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}
+                </Typography>
+                <Rating
+                  value={Number(value)}
+                  readOnly
+                  max={5}
+                  sx={{ paddingLeft: "5px" }}
+                />
+              </Box>
+            ))}
+          </CardContent>
         </Card>
 
         {/* Jobs Listing */}
-        <Card sx={{ flex: 2, minHeight: 180 }}>
+        <Card sx={{ flex: 3, minHeight: 180 }}>
           <Box sx={{ padding: 2 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
               Available Jobs
@@ -75,21 +83,54 @@ export default function CompanyProfile() {
             {companyData?.jobs && companyData.jobs.length > 0 ? (
               <List>
                 {companyData.jobs.map((job, index) => (
-                  <Box key={index} mb={2}>
-                    <ListItem disablePadding>
-                      <ListItemText
-                        primary={job.title}
-                        secondary={job.location}
-                        primaryTypographyProps={{ fontWeight: "bold" }}
-                      />
-                    </ListItem>
-                    <Typography variant="body2" color="text.secondary" mt={1}>
-                      {job.description}
-                    </Typography>
+                  <>
+                    <Box
+                      mb={2}
+                      display="flex"
+                      alignItems="flex-start"
+                      justifyContent="space-between"
+                    >
+                      <Box flex={1}>
+                        <ListItem disablePadding>
+                          <ListItemText
+                            primary={job.title}
+                            secondary={job.location}
+                            primaryTypographyProps={{ fontWeight: "bold" }}
+                          />
+                        </ListItem>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          mt={1}
+                        >
+                          {job.description}
+                        </Typography>
+                      </Box>
+                      <Stack
+                        direction="column"
+                        spacing={1}
+                        alignItems="flex-end"
+                      >
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          sx={{ width: 160 }}
+                        >
+                          Find Candidates
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          sx={{ width: 160 }}
+                        >
+                          See Applicants
+                        </Button>
+                      </Stack>
+                    </Box>
                     {index < companyData.jobs.length - 1 && (
-                      <Divider sx={{ my: 1 }} />
+                      <Divider sx={{ my: 2 }} /> // Add divider between jobs
                     )}
-                  </Box>
+                  </>
                 ))}
               </List>
             ) : (

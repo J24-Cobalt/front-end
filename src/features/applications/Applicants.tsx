@@ -6,27 +6,7 @@ import {
   Stack,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-
-const applications = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    description:
-      "Front-end developer with 5 years of experience in React and Material UI.",
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    description:
-      "Full-stack engineer skilled in Node.js, GraphQL, and TypeScript.",
-  },
-  {
-    id: 3,
-    name: "Charlie Davis",
-    description:
-      "Experienced UX/UI designer passionate about creating user-centric designs.",
-  },
-];
+import { matchedUser } from "@features/matchingPage/data";
 
 // This is for companies. List of applicants that are interested in your job.
 export default function Applicants() {
@@ -45,7 +25,7 @@ export default function Applicants() {
       }}
     >
       <Stack spacing={3}>
-        {applications.map((application) => (
+        {matchedUser.map((application) => (
           <Card
             key={application.id}
             sx={{
@@ -56,13 +36,13 @@ export default function Applicants() {
           >
             <CardContent>
               <Stack direction="row" spacing={2} alignItems="center">
-                  <PersonIcon />
+                <PersonIcon />
                 <Box>
                   <Typography variant="h6" fontWeight="bold">
                     {application.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {application.description}
+                    {application.experience}
                   </Typography>
                 </Box>
               </Stack>

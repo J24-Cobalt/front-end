@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  Rating,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
@@ -39,22 +40,27 @@ export default function CompanyProfile() {
       </Stack>
 
       <Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
-        <Card sx={{ flex: 1, minHeight: 180 }}>
+        <Card sx={{ flex: 1.5, minHeight: 180 }}>
           <Box sx={{ padding: 2 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
               Culture Metrics
             </Typography>
             <List>
-              {companyData?.culture_metric
-                ? Object.entries(companyData.culture_metric).map(
-                    ([key, value]) => (
-                      <ListItem key={key} disablePadding>
-                        <ListItemText
-                          primary={key}
-                          secondary={value}
-                          primaryTypographyProps={{ fontWeight: "bold" }}
-                        />
-                      </ListItem>
+              {companyData?.sdt_profile
+                ? Object.entries(companyData.sdt_profile).map(
+                    ([trait, value]) => (
+                      <Box
+                        key={trait}
+                        sx={{ display: "flex", alignItems: "center", mb: 1 }}
+                      >
+                        <Typography variant="body2" textAlign="center">
+                          {/* Remove underscores and capitalize words */}
+                          {trait
+                            .replace(/_/g, " ")
+                            .replace(/\b\w/g, (c) => c.toUpperCase())}
+                        </Typography>
+                        <Rating value={Number(value)} readOnly max={5} sx={{paddingLeft: 1}}/>
+                      </Box>
                     )
                   )
                 : "No culture metrics available."}

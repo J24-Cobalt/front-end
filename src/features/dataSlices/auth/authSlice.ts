@@ -1,12 +1,12 @@
 // authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import {
-  fetchHasMatchedData,
+  fetchHasMatchData,
   fetchUserData,
   loginUser,
   registerUser,
 } from "@app/services/api/auth";
-import { CompanyData, HasMatched, UserData } from "@features/types";
+import { CompanyData, HasMatchesWCompanies, UserData } from "@features/types";
 
 export interface UserAuth {
   id: string;
@@ -22,7 +22,7 @@ interface AuthState {
   userType: "applicant" | "company" | null;
   userData: UserData | null;
   companyData: CompanyData | null;
-  matchedCompanies: HasMatched[] | null; // Store matched companies here
+  matchedCompanies: HasMatchesWCompanies[] | null; // Store matched companies here
   loading: boolean;
   error: string | null;
 }
@@ -65,7 +65,10 @@ export const register = createAsyncThunk<
 
 // Async thunk for loading user data and matched companies
 export const loadUserData = createAsyncThunk<
-  { userData: UserData | CompanyData; matchedCompanies: HasMatched[] },
+  {
+    userData: UserData | CompanyData;
+    matchedCompanies: HasMatchesWCompanies[];
+  },
   { email: string; userType: "applicant" | "company" },
   { rejectValue: string }
 >("auth/loadUserData", async ({ email, userType }, thunkAPI) => {
@@ -73,7 +76,7 @@ export const loadUserData = createAsyncThunk<
     // Initiate both requests at the same time
     const [userData, matchedCompanies] = await Promise.all([
       fetchUserData(email, userType),
-      fetchHasMatchedData(email),
+      fetchHasMatchData(email),
     ]);
 
     return { userData, matchedCompanies }; // Return both pieces of data
@@ -155,7 +158,7 @@ const authSlice = createSlice({
           state,
           action: PayloadAction<{
             userData: UserData | CompanyData;
-            matchedCompanies: HasMatched[];
+            matchedCompanies: HasMatchesWCompanies[];
           }>
         ) => {
           state.loading = false;

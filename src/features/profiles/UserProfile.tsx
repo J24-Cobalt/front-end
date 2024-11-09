@@ -63,9 +63,14 @@ export default function UserProfile() {
                   {/* Remove underscores and capitalize words */}
                   {trait
                     .replace(/_/g, " ")
-                    .replace(/\b\w/g, (c) => c.toUpperCase())} 
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}
                 </Typography>
-                <Rating value={Number(value)} readOnly max={5} />
+                <Rating
+                  value={Number(value)}
+                  readOnly
+                  max={5}
+                  sx={{ paddingLeft: 1 }}
+                />
               </Box>
             ))}
           </CardContent>

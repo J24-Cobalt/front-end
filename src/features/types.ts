@@ -45,11 +45,14 @@ export interface data {
   sdt_profile: SdtProfile; // Renamed here
   cv: string;
   applications: Applications;
-  culture_metric: CultureMetric;
+  sdt_profileComp: SdtProfileComp;
   jobs: Job[];
   logo: string;
   description: string;
-  hasMatched: HasMatched[];
+  hasMatchedCompanies: HasMatchedCompanies[];
+  hasMatchedApplicants: HasMatchedApplicants[];
+  hasMatchesWApplicants: HasMatchesWApplicants[];
+  hasMatchesWCompanies: HasMatchesWCompanies[];
 }
 
 // Interface for work experience entries
@@ -81,13 +84,65 @@ export interface Applications {
 }
 
 // HasMatched interface for matched companies
+export interface HasMatchedCompanies {
+  iscompany: boolean;
+  logo: string;
+  name: string;
+  email: string;
+  password: string;
+  culture_metric: SdtProfileComp;
+  jobs: Job[];
+  description: string;
+  location: string;
+}
+
+// HasMatched interface for matched companies
 export interface HasMatched {
   iscompany: boolean;
   logo: string;
   name: string;
   email: string;
   password: string;
-  culture_metric: CultureMetric;
+  sdt_profile: SdtProfile;
+  jobs: Job[];
+  description: string;
+  location: string;
+}
+
+// HasMatched interface for matching companies
+export interface HasMatchesWCompanies {
+  iscompany: boolean;
+  logo: string;
+  name: string;
+  email: string;
+  password: string;
+  culture_metric: SdtProfile;
+  jobs: Job[];
+  description: string;
+  location: string;
+}
+
+// HasMatched interface for matched users
+export interface HasMatchedApplicants {
+  iscompany: boolean;
+  logo: string;
+  name: string;
+  email: string;
+  password: string;
+  culture_metric: SdtProfile;
+  jobs: Job[];
+  description: string;
+  location: string;
+}
+
+// HasMatched interface for matching users
+export interface HasMatchesWApplicants {
+  iscompany: boolean;
+  logo: string;
+  name: string;
+  email: string;
+  password: string;
+  culture_metric: SdtProfile;
   jobs: Job[];
   description: string;
   location: string;
@@ -100,14 +155,14 @@ export interface CompanyData {
   name: string;
   email: string;
   password: string;
-  culture_metric: CultureMetric;
+  sdt_profile: SdtProfile;
   jobs: Job[];
   logo: string;
   description: string;
 }
 
 // Additional interfaces for nested structures in CompanyData
-export interface CultureMetric {
+export interface SdtProfileComp {
   [key: string]: string | number; // Adjust as needed; assumes flexible metric data types
 }
 
