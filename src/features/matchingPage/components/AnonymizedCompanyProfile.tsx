@@ -76,7 +76,7 @@ export default function AnonymizedCompanyProfile({
               sx={{
                 position: "relative",
                 width: "100%",
-                height: 260,
+                height: 300,
                 maxHeight: 300,
                 bgcolor: "black",
                 borderRadius: 1,

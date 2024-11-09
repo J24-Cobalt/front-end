@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
+import userIcon2 from '../../assets/profile-avatars/user_icon_2.png';
 
 export default function UserProfile() {
   const userData = useSelector(
@@ -33,7 +34,7 @@ export default function UserProfile() {
       }}
     >
       <Stack direction="row" spacing={2} alignItems="center" mb={4}>
-        <Avatar alt={fullName} src={avatarUrl} sx={{ width: 80, height: 80 }} />
+        <Avatar alt={fullName} src={userIcon2} sx={{ width: 80, height: 80 }} />
         <Stack direction="column" spacing={0.5}>
           <Typography variant="h4" fontWeight="bold">
             {fullName}
@@ -48,7 +49,7 @@ export default function UserProfile() {
       <Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
         {/* SDT Profile Card with Rating */}
         <Card
-          sx={{ flex: 2, minHeight: 180, maxHeight: 250, overflowY: "auto" }}
+          sx={{ flex: 2.5, minHeight: 180, maxHeight: 250, overflowY: "auto" }}
         >
           <CardContent>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
