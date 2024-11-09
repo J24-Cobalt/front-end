@@ -1,66 +1,113 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Grow from '@mui/material/Grow';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Box, Button, Typography, Modal, Grow } from "@mui/material";
+import { RootState, AppDispatch } from "@app/store/store";
+import { login } from "@features/dataSlices/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+
+interface LoginModalProps {
+  open: boolean;
+  onClose: () => void;
+}
 
 const style = {
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 8, // Add rounded corners
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: 8,
 };
 
-const LoginModal = () => {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "10px",
+  margin: "10px 0",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
+  outline: "none",
+  fontSize: "16px",
+  boxSizing: "border-box",
+};
 
-    return (
-        <div>
-            <Button onClick={handleOpen}>Login</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                BackdropProps={{
-                    style: { backdropFilter: 'blur(10px)' }, // Apply blur effect
-                }}
-                closeAfterTransition
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Grow in={open}>
-                    <Box sx={{ ...style, display: 'flex', flexDirection: 'row' }}>
-                        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: 2 }}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: 'center', mb: 2 }}>
-                                Login
-                            </Typography>
-                            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                <Box sx={{ mb: 2, width: '100%' }}>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>E-Mail</Typography>
-                                    <input type="text" style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
-                                </Box>
-                                <Box sx={{ mb: 2, width: '100%' }}>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>Password</Typography>
-                                    <input type="password" style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }} />
-                                </Box>
-                                <Button variant="contained" color="primary" type="submit" sx={{ width: '100%' }}>
-                                    Login
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Box>
-                </Grow>
-            </Modal>
-        </div>
-    );
+const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const authError = useSelector((state: RootState) => state.auth.error);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // Close the modal and navigate after login if authenticated
+    if (isAuthenticated && open) {
+      onClose();
+      navigate("/matching");
+    }
+  }, [isAuthenticated, open, navigate, onClose]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      closeAfterTransition
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Grow in={open}>
+        <Box sx={style}>
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ textAlign: "center", mb: 2 }}
+          >
+            Login
+          </Typography>
+          {authError && (
+            <Typography color="error" sx={{ mb: 2, textAlign: "center" }}>
+              {authError}
+            </Typography>
+          )}
+          <form onSubmit={handleSubmit}>
+            <Box>
+              <Typography>E-Mail</Typography>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={inputStyle}
+              />
+            </Box>
+            <Box>
+              <Typography>Password</Typography>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={inputStyle}
+              />
+            </Box>
+            <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+              Login
+            </Button>
+          </form>
+        </Box>
+      </Grow>
+    </Modal>
+  );
 };
 
 export default LoginModal;

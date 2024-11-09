@@ -29,6 +29,11 @@ const theme = createTheme({
         component: LinkBehavior,
       } as LinkProps,
     },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
+    },
   },
 });
 

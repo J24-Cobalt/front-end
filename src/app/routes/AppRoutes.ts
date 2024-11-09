@@ -4,5 +4,4 @@ export const AppRoutes = {
   matching: "/matching",
   applications: "/applications",
   applicants: "/applicants",
-  
 };
