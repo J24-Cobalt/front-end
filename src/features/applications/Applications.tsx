@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@app/store/store";
 import { useNavigate } from "react-router-dom";
 import { setSelectedCompany } from "@features/dataSlices/company/matchingCompanySlice";
-import { HasMatched } from "@features/types";
 
 export default function Applications() {
   const matchedCompanies = useSelector(

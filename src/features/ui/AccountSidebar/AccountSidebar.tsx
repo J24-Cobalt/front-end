@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import { Colors, theme } from "@app/styles";
 import { ACCOUNT_LINKS } from "./data";
-import { AppDispatch } from "@app/store/store"; // Ensure this is correctly set up
+import { AppDispatch, RootState } from "@app/store/store"; // Ensure this is correctly set up
 import { logout } from "@features/dataSlices/auth/authSlice"; // Import the logout action
-import { useDispatch } from "react-redux";
-import mintLogo from '../../../assets/mint-logo.png'; 
+import { useDispatch, useSelector } from "react-redux";
+import mintLogo from "../../../assets/mint-logo.png";
 
 interface Props {
   onClose: () => void;
@@ -25,7 +25,8 @@ interface Props {
 
 export default function AccountSidebar({ isMinimized, onClose }: Props) {
   const dispatch = useDispatch<AppDispatch>();
-  const isCompany = false;
+  const userType = useSelector((state: RootState) => state.auth.userType);
+  const isCompany = userType === "company";
 
   const onLinkClick = () => {
     onClose();
@@ -65,17 +66,18 @@ export default function AccountSidebar({ isMinimized, onClose }: Props) {
               marginBottom: "25px",
               justifyContent: "center",
               alignItems: "center",
-              width: '75px',
-              height: '75px', 
+              width: "75px",
+              height: "75px",
             }}
           />
         </Box>
         <List>
           {ACCOUNT_LINKS.map(({ Icon, text, path, divider }) => {
+            // Modify link text and path if userType is company
             const displayText =
               isCompany && text === "Applications" ? "Applicants" : text;
             const displayPath =
-              isCompany && text === "/applications" ? "/applicants" : path;
+              isCompany && path === "/applications" ? "/applicants" : path;
 
             return (
               <div key={text}>
