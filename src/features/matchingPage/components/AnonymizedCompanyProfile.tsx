@@ -88,7 +88,7 @@ export default function AnonymizedCompanyProfile({
               {/* Play Button */}
               <Box
                 sx={{
-                  width: 64,
+                  width: 75,
                   height: 64,
                   bgcolor: "rgba(255, 255, 255, 0.8)",
                   borderRadius: "50%",
@@ -99,7 +99,7 @@ export default function AnonymizedCompanyProfile({
                 }}
               >
                 <Typography
-                  variant="h3"
+                  variant="h4"
                   color="black"
                   sx={{ fontWeight: "bold" }}
                 >
@@ -139,7 +139,7 @@ export default function AnonymizedCompanyProfile({
                   justifyContent="space-between"
                   sx={{ mt: 0.5, px: 0.5, color: "white", fontSize: 12 }}
                 >
-                  <Typography>0:00</Typography>
+                  <Typography>0:47</Typography>
                   <Typography>2:45</Typography>
                 </Stack>
               </Box>

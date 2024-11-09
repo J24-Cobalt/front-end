@@ -201,21 +201,21 @@ const LandingPage = () => {
                 }}
               >
                 <Typography
-                  sx={{padding: 0, fontSize: "16px", width: 200 }}
+                  sx={{padding: 0, fontSize: "16px", width: 180 }}
                 >
                   Trusted by:
                 </Typography>
                 <Stack direction="row">
-                  <Stack sx={{ padding: 0 }} direction="row" gap={2}>
+                  <Stack sx={{ padding: 0 }} direction="row" gap={4}>
                     <Button
                       variant="contained"
                       color="primary"
                       sx={{
-                        height: 50,
+                        height: 45,
                         width: 180,
                         textAlign: "center",
                         fontWeight: "bold",
-                        fontSize: "14px",
+                        fontSize: "12px",
                       }}
                     >
                       Medicare Systems
@@ -224,11 +224,11 @@ const LandingPage = () => {
                       variant="contained"
                       color="primary"
                       sx={{
-                        height: 50,
-                        width: 200,
+                        height: 45,
+                        width: 180,
                         textAlign: "center",
                         fontWeight: "bold",
-                        fontSize: "14px",
+                        fontSize: "12px",
                       }}
                     >
                       GreenTech Solutions
@@ -237,11 +237,11 @@ const LandingPage = () => {
                       variant="contained"
                       color="primary"
                       sx={{
-                        height: 50,
-                        width: 230,
+                        height: 45,
+                        width: 180,
                         textAlign: "center",
                         fontWeight: "bold",
-                        fontSize: "14px",
+                        fontSize: "12px",
                       }}
                     >
                       FutureTech Innovations
