@@ -4,6 +4,18 @@ import TinderCard from 'react-tinder-card';
 import Confetti from 'react-confetti';
 import AnonymizedUserProfile from './components/AnoymizedUserProfile';
 import './MatchingPage.css';
+import { styled } from '@mui/system';
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  borderRadius: theme.spacing(3),
+  paddingLeft: theme.spacing(4),
+  paddingRight: theme.spacing(4),
+  paddingTop: theme.spacing(2),
+  paddingBottom: theme.spacing(2),
+  fontSize: '1rem',
+  fontWeight: 'bold',
+  textTransform: 'none',
+}));
 
 const profiles = [
   {
@@ -88,64 +100,105 @@ export default function MatchingPage() {
   return (
     <Box
       sx={{
-        width: '100%',
-        maxWidth: 1200,
-        margin: 'auto',
-        padding: 4,
-        bgcolor: '#f9f9f9',
-        boxShadow: 3,
-        borderRadius: 2,
-        position: 'relative',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        overflow: 'hidden',
+      width: '100%',
+      bgcolor: '#f9f9f9',
+      boxShadow: 3,
+      borderRadius: 2,
+      margin: '2px',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      overflow: 'hidden',
+      flex: 1,
       }}
     >
       {showConfetti && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          numberOfPieces={100}
-          recycle={false}
-          className="fade-out"
-        />
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        numberOfPieces={100}
+        recycle={false}
+        className="fade-out"
+        gravity={0.2}
+      />
       )}
-      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', maxHeight: '80vh' }}>
-        {currentIndex >= 0 ? (
-          <div className="cardContainer">
-            {profiles.map((profile, index) => (
-              <TinderCard
-                ref={childRefs[index]}
-                className="swipe stackedCard"
-                key={profile.name}
-                onSwipe={(dir) => swiped(dir, profile.name, index)}
-                onCardLeftScreen={() => outOfFrame(profile.name, index)}
-                preventSwipe={['up', 'down']}
-              >
-                <div className="card">
-                  <AnonymizedUserProfile profile={profile} />
-                </div>
-              </TinderCard>
-            ))}
+      {currentIndex >= 0 ? (
+        <div className="cardContainer">
+        {profiles.map((profile, index) => (
+          <TinderCard
+          ref={childRefs[index]}
+          className="swipe stackedCard"
+          key={profile.name}
+          onSwipe={(dir) => swiped(dir, profile.name, index)}
+          onCardLeftScreen={() => outOfFrame(profile.name, index)}
+          preventSwipe={['up', 'down']}
+          >
+          <div className="card">
+            <AnonymizedUserProfile profile={profile} />
           </div>
-        ) : (
-          <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            No more profiles
-          </Typography>
-        )}
-      </Box>
-      {currentIndex >= 0 && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, position: 'absolute', bottom: 0, width: '100%', maxHeight: '80hv' }}>
-          <Button variant="contained" color="secondary" onClick={() => swipe('left')} sx={{ mr: 2 }}>
-            Not interested
-          </Button>
-          <Button variant="contained" color="primary" onClick={() => swipe('right')}>
-            Apply
-          </Button>
+          </TinderCard>
+        ))}
+        </div>
+      ) : (
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Typography variant="h4" sx={{ textAlign: 'center' }}>
+          No more profiles
+        </Typography>
         </Box>
       )}
+      <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 2,
+        mb: 2,
+      }}
+      >
+      {currentIndex >= 0 && (
+        <>
+        <Box
+          sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 2,
+          marginTop: 4,
+          }}
+        >
+          <StyledButton
+          variant="outlined"
+          color="primary"
+          onClick={() => swipe('left')}
+          sx={{
+            borderColor: 'primary.main',
+            color: 'primary.main',
+            '&:hover': {
+            backgroundColor: 'primary.light',
+            borderColor: 'primary.dark',
+            mr: 2
+            },
+          }}
+          >
+          Doesn't match
+          </StyledButton>
+          <StyledButton
+          variant="contained"
+          color="primary"
+          onClick={() => swipe('right')}
+          sx={{
+            backgroundColor: 'primary.main',
+            '&:hover': {
+            backgroundColor: 'primary.dark',
+            },
+          }}
+          >
+          Apply to Company
+          </StyledButton>
+        </Box>
+        </>
+      )}
+      </Box>
     </Box>
   );
 }

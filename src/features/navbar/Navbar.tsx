@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Stack } from "@mui/material";
 import { Colors } from "@app/styles";
 import LoginModal from "@features/landingPage/components/LoginModal";
@@ -11,6 +10,7 @@ import AppButton from "@features/ui/AppButton";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
+import mintLogo from '../../assets/mint-logo.png'; 
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
@@ -56,7 +56,18 @@ export default function Navbar() {
       >
         {/* Logo and menu items */}
         <Stack direction="row" alignItems="center" spacing={2}>
-          <AdbIcon sx={{ color: "white" }} />
+        <img
+            src={mintLogo}
+            alt="Mint Logo"
+            style={{
+              display: "flex",
+              color: "black",
+              justifyContent: "center",
+              alignItems: "center",
+              width: '75px',
+              height: '75px', 
+            }}
+          />
           <Typography
             variant="h5"
             component="a"
@@ -68,7 +79,7 @@ export default function Navbar() {
               mr: 2,
             }}
           >
-            LOGO
+            Mint
           </Typography>
           <Stack direction="row" spacing={2}>
             {pages.map((page) => (

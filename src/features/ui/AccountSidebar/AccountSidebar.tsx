@@ -12,11 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Colors, theme } from "@app/styles";
-import AdbIcon from "@mui/icons-material/Adb";
 import { ACCOUNT_LINKS } from "./data";
 import { AppDispatch } from "@app/store/store"; // Ensure this is correctly set up
 import { logout } from "@features/dataSlices/auth/authSlice"; // Import the logout action
 import { useDispatch } from "react-redux";
+import mintLogo from '../../../assets/mint-logo.png'; 
 
 interface Props {
   onClose: () => void;
@@ -56,13 +56,17 @@ export default function AccountSidebar({ isMinimized, onClose }: Props) {
             gap: 2.5,
           }}
         >
-          <AdbIcon
-            sx={{
+          <img
+            src={mintLogo}
+            alt="Mint Logo"
+            style={{
               display: "flex",
-              mr: 1,
               color: "black",
+              marginBottom: "25px",
               justifyContent: "center",
               alignItems: "center",
+              width: '75px',
+              height: '75px', 
             }}
           />
         </Box>
