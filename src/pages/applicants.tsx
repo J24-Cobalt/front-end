@@ -1,6 +1,6 @@
-import Applicants from "@features/applications/applications";
+import Applicants from "@features/applications/Applicants";
 
 // This is for the companies. To see their applicants for their jobs.
-export default function applicationsPage() {
+export default function applicantsPage() {
   return <Applicants />;
 }

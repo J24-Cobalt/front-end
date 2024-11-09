@@ -4,9 +4,9 @@ import Profile from "@pages/profile";
 import ProtectedRoute from "./ProtectedRoute";
 import AccountLayout from "@features/ui/AccountSidebar/AccountLayout";
 import Applications from "@pages/applications";
-import Applicants from "@pages/applications";
 import MatchingPage from "@pages/matching";
 import CompanyProfile from "@features/profiles/selectedCompany";
+import Applicants from "@pages/applicants";
 
 export default function AppRouter() {
   return (
