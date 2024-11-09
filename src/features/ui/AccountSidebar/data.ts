@@ -3,6 +3,7 @@ import StarsIcon from "@mui/icons-material/Stars";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import type { SvgIconTypeMap } from "@mui/material";
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
+import DynamicFormIcon from "@mui/icons-material/DynamicForm";
 
 interface AccountLinks {
   Icon: OverridableComponent<SvgIconTypeMap<object, "svg">>;
@@ -28,6 +29,12 @@ export const ACCOUNT_LINKS: AccountLinks[] = [
     Icon: StarsIcon,
     text: "Applications",
     path: "/applications",
+    divider: false,
+  },
+  {
+    Icon: DynamicFormIcon,
+    text: "Questionnaires",
+    path: "/questionnaires",
     divider: false,
   },
 ];
