@@ -13,9 +13,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
 
 export default function CompanyProfile() {
-  // Select the company data from Redux store
   const companyData = useSelector(
-    (state: RootState) => state.auth.companyData?.data[0]
+    (state: RootState) => state.company.selectedCompany
   );
 
   return (
@@ -27,7 +26,6 @@ export default function CompanyProfile() {
         padding: 4,
       }}
     >
-      {/* Header with Avatar, Company Name, and Description */}
       <Stack direction="row" spacing={2} alignItems="center" mb={4}>
         <Avatar
           src={companyData?.logo || "/default-logo.png"}
@@ -40,9 +38,7 @@ export default function CompanyProfile() {
         </Stack>
       </Stack>
 
-      {/* Culture Metrics and Jobs */}
       <Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
-        {/* Culture Metric Card */}
         <Card sx={{ flex: 1, minHeight: 180 }}>
           <Box sx={{ padding: 2 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
@@ -66,7 +62,6 @@ export default function CompanyProfile() {
           </Box>
         </Card>
 
-        {/* Jobs Listing */}
         <Card sx={{ flex: 2, minHeight: 180 }}>
           <Box sx={{ padding: 2 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>

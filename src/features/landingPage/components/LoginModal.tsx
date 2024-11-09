@@ -88,7 +88,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
   ) => {
     if (newUserType !== null) {
       setUserType(newUserType);
-      console.log(newUserType);
     }
   };
 
