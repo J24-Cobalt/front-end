@@ -6,7 +6,7 @@ import UserProfile from "@features/profiles/UserProfile";
 export default function Profile() {
   // Replace this with the actual selector from your Redux store or other state management
   //const isCompany = useAppSelector((state) => state.auth.isCompany); // adjust selector as needed
-  const isCompany = true;
+  const isCompany = false;
 
   return isCompany ? <CompanyProfile /> : <UserProfile />;
 }

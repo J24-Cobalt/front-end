@@ -16,6 +16,8 @@ interface AuthState {
   error: string | null;
 }
 
+const userType = "company";
+
 // Async thunk for login
 export const login = createAsyncThunk<
   UserAuth,
@@ -23,7 +25,7 @@ export const login = createAsyncThunk<
   { rejectValue: string }
 >("auth/login", async ({ email, password }, thunkAPI) => {
   try {
-    const user = await loginUser(email, password);
+    const user = await loginUser(email, password, userType);
     return user;
   } catch (error) {
     return thunkAPI.rejectWithValue(`Invalid email or password: ${error}`);
@@ -63,10 +65,13 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Enhanced logout reducer to clear all user data
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
       state.error = null;
+      // Clear any stored token or session info
+      localStorage.removeItem("authToken"); // Example of clearing stored token
     },
     clearAuthError: (state) => {
       state.error = null;
