@@ -103,9 +103,18 @@ export default function MatchingPage() {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h4" sx={{ textAlign: "center" }}>
-            No more matches. Come back soon
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+              textAlign: "center",
+              color: "black",
+              fontWeight: "bold",
+              mt: 4,
+              textShadow: "1px 1px 6px rgba(0, 128, 0, 0.1)", // Primary green text shadow
+              }}
+            >
+              All caught up. Check back soon!
+            </Typography>
         </Box>
       )}
       <Box

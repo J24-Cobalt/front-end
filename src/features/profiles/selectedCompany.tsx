@@ -36,6 +36,9 @@ export default function CompanyProfile() {
           <Typography variant="h4" fontWeight="bold">
             {companyData?.name || "Company Name"}
           </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            Contact now: <span style={{ color: '#059669' }}>+358 40 123 4567</span>
+          </Typography>
         </Stack>
       </Stack>
 
@@ -48,21 +51,21 @@ export default function CompanyProfile() {
             <List>
               {companyData?.sdt_profile
                 ? Object.entries(companyData.sdt_profile).map(
-                    ([trait, value]) => (
-                      <Box
-                        key={trait}
-                        sx={{ display: "flex", alignItems: "center", mb: 1 }}
-                      >
-                        <Typography variant="body2" textAlign="center">
-                          {/* Remove underscores and capitalize words */}
-                          {trait
-                            .replace(/_/g, " ")
-                            .replace(/\b\w/g, (c) => c.toUpperCase())}
-                        </Typography>
-                        <Rating value={Number(value)} readOnly max={5} sx={{paddingLeft: 1}}/>
-                      </Box>
-                    )
+                  ([trait, value]) => (
+                    <Box
+                      key={trait}
+                      sx={{ display: "flex", alignItems: "center", mb: 1 }}
+                    >
+                      <Typography variant="body2" textAlign="center">
+                        {/* Remove underscores and capitalize words */}
+                        {trait
+                          .replace(/_/g, " ")
+                          .replace(/\b\w/g, (c) => c.toUpperCase())}
+                      </Typography>
+                      <Rating value={Number(value)} readOnly max={5} sx={{ paddingLeft: 1 }} />
+                    </Box>
                   )
+                )
                 : "No culture metrics available."}
             </List>
           </Box>
