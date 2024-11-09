@@ -104,7 +104,7 @@ export default function MatchingPage() {
           }}
         >
           <Typography variant="h4" sx={{ textAlign: "center" }}>
-            No more profiles
+            No more matches. Come back soon
           </Typography>
         </Box>
       )}
