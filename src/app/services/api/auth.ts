@@ -1,3 +1,5 @@
+// auth.ts
+import { CompanyData, UserData } from "@features/types";
 import axios from "axios";
 
 const API_BASE_URL = "http://127.0.0.1:8001";
@@ -20,7 +22,7 @@ export const registerUser = async (userData: {
   }
 };
 
-// Login API call for applicant or company based on userType
+// loginUser now returns an object with email and other details
 export const loginUser = async (
   email: string,
   password: string,
@@ -28,12 +30,18 @@ export const loginUser = async (
 ) => {
   const endpoint =
     userType === "applicant" ? "/applicant/login" : "/company/login";
+
   try {
     const response = await axios.post(`${API_BASE_URL}${endpoint}`, {
       email,
       password,
     });
-    return response.data; // Assuming the response includes the user data or token
+
+    if (response.data?.message === "logged in successfully") {
+      return { email, isCompany: userType === "company", ...response.data }; // Include email in the response
+    } else {
+      throw new Error("Invalid credentials");
+    }
   } catch (error) {
     throw new Error(`Login failed: ${error}`);
   }
@@ -43,7 +51,19 @@ export const loginUser = async (
 export const fetchUser = async (email: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/applicant/${email}`);
-    return response.data; // Assuming the response includes the user data
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch user data: ${error}`);
+  }
+};
+
+// Fetch user by email for applicant or company
+export const fetchUserData = async (email: string, userType: "applicant" | "company") => {
+  console.log(`email: ${email}, userType: ${userType}`);
+  const endpoint = userType === "applicant" ? `/applicant/${email}` : `/company/${email}`;
+  try {
+    const response = await axios.get(`${API_BASE_URL}${endpoint}`);
+    return response.data as UserData | CompanyData;
   } catch (error) {
     throw new Error(`Failed to fetch user data: ${error}`);
   }

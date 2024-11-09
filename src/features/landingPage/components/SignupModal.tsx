@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Typography, Modal, Grow } from "@mui/material";
+import { Box, Button, Typography, Modal, Grow, Link } from "@mui/material";
 import { RootState, AppDispatch } from "@app/store/store";
 import { register } from "@features/dataSlices/auth/authSlice";
 
 interface SignUpModalProps {
   open: boolean;
   onClose: () => void;
+  onOpenLogin: () => void;
 }
 
 const modalStyle = {
@@ -31,7 +32,11 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const SignUpModal: React.FC<SignUpModalProps> = ({ open, onClose }) => {
+const SignUpModal: React.FC<SignUpModalProps> = ({
+  open,
+  onClose,
+  onOpenLogin,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const authError = useSelector((state: RootState) => state.auth.error);
 
@@ -112,6 +117,12 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ open, onClose }) => {
               Sign Up
             </Button>
           </form>
+          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+            Already have an account?{" "}
+            <Link component="button" variant="body2" onClick={onOpenLogin}>
+              Log in
+            </Link>
+          </Typography>
         </Box>
       </Grow>
     </Modal>

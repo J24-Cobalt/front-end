@@ -10,7 +10,7 @@ import SignupModal from "@features/landingPage/components/SignupModal";
 import AppButton from "@features/ui/AppButton";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@app/store/store"; // import RootState to access Redux state
+import { RootState } from "@app/store/store";
 
 const pages = ["Home", "Improving", "Wellbeing"];
 
@@ -26,6 +26,18 @@ export default function Navbar() {
 
   const openSignupModal = () => setSignupModalOpen(true);
   const closeSignupModal = () => setSignupModalOpen(false);
+
+  // Function to open signup modal from login modal
+  const toggleToSignup = () => {
+    closeLoginModal();
+    openSignupModal();
+  };
+
+  // Function to open login modal from signup modal
+  const toggleToLogin = () => {
+    closeSignupModal();
+    openLoginModal();
+  };
 
   return (
     <Box
@@ -98,8 +110,17 @@ export default function Navbar() {
         </Stack>
       </Stack>
 
-      <LoginModal open={loginModalOpen} onClose={closeLoginModal} />
-      <SignupModal open={signupModalOpen} onClose={closeSignupModal} />
+      {/* Pass the toggle functions as props */}
+      <LoginModal
+        open={loginModalOpen}
+        onClose={closeLoginModal}
+        onOpenSignup={toggleToSignup}
+      />
+      <SignupModal
+        open={signupModalOpen}
+        onClose={closeSignupModal}
+        onOpenLogin={toggleToLogin}
+      />
     </Box>
   );
 }

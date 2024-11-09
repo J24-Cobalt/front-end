@@ -4,6 +4,7 @@ export interface UserAuth {
   fullname: string;
   email: string;
   password: string;
+  isCompany: boolean; // Added isCompany field
 }
 
 // Top-level interface for user data
