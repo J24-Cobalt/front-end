@@ -14,12 +14,9 @@ export default function AnonymizedUserProfile({ profile }: { profile: Profile })
     <Box
       sx={{
         width: '100%',
-        maxWidth: '95%',
-        margin: 'auto',
         padding: 4,
-
-        boxShadow: 3,
-        borderRadius: 2,
+        borderRadius: "15px",
+        border: "1px solid lightgrey",
       }}
     >
       {/* Name and Title Stack */}

@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 3;
 }
 
 .swipe {
@@ -13,19 +14,9 @@
 
 .card {
   background-color: #fff;
-  width: 950px;
-  max-height: 800px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  transform: translate(1.5%, 0%);
+  border-radius: "15px";
+  border: "1px solid";
 }
 
 .card:nth-child(1) {
