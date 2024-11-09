@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import AccountLayout from "@features/ui/AccountSidebar/AccountLayout";
 import Applications from "@pages/applications";
 import Applicants from "@pages/applications";
+import MatchingPage from "@pages/matching";
 
 export default function AppRouter() {
   return (
@@ -20,7 +21,7 @@ export default function AppRouter() {
         }
       >
         <Route path={"/profile"} element={<Profile />} />
-        {/*<Route path={"/matching"} element={< />} />*/}
+        <Route path={"/matching"} element={<MatchingPage />} />
         <Route path={"/applications"} element={<Applications/>} />
         <Route path={"/applicants"} element={<Applicants/>} />
       </Route>
