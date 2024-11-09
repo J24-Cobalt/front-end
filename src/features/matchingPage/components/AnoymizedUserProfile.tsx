@@ -22,9 +22,6 @@ export default function AnonymizedUserProfile({ profile }: { profile: Profile })
       {/* Name and Title Stack */}
       <Stack spacing={1} mb={4} direction="column" alignItems="center">
         <Typography variant="h4" fontWeight="bold">
-          {profile.name}
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
           {profile.title}
         </Typography>
       </Stack>
