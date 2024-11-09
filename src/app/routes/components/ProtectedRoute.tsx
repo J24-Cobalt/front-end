@@ -1,21 +1,19 @@
 import { Navigate, useLocation } from "react-router-dom";
-
-//import { selectAuth } from "@features/auth/store/authSlice";
-//import { useAppSelector } from "@store/index";
+import { useSelector } from "react-redux";
+import { RootState } from "@app/store/store";
 
 interface Props {
   children: JSX.Element;
 }
 
 export default function ProtectedRoute({ children }: Props) {
-  //const auth = useAppSelector(selectAuth);
-  const auth = true;
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   const location = useLocation();
 
-  if (!auth) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected.
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
   return children;

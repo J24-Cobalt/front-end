@@ -23,7 +23,6 @@ export default function AppRouter() {
         {/*<Route path={"/matching"} element={< />} />*/}
         <Route path={"/applications"} element={<Applications/>} />
         <Route path={"/applicants"} element={<Applicants/>} />
-        {/*<Route path={"/profile"} element={< />} />*/}
       </Route>
     </Routes>
   );
