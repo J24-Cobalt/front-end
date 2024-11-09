@@ -7,6 +7,7 @@ import Applications from "@pages/applications";
 import MatchingPage from "@pages/matching";
 import CompanyProfile from "@features/profiles/selectedCompany";
 import Applicants from "@pages/applicants";
+import QuestionnairePage from "@pages/questionnaire";
 
 export default function AppRouter() {
   return (
@@ -25,6 +26,7 @@ export default function AppRouter() {
         <Route path={"/matching"} element={<MatchingPage />} />
         <Route path={"/applications"} element={<Applications />} />
         <Route path={"/applicants"} element={<Applicants />} />
+        <Route path={"/questionnaires"} element={<QuestionnairePage />} />
         <Route path="/company-profile" element={<CompanyProfile />} />
         <Route path="/user-profile" element={<CompanyProfile />} />
       </Route>
