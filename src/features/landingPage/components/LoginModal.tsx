@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Typography, Modal, Grow } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  Modal,
+  Grow,
+  Link,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import { RootState, AppDispatch } from "@app/store/store";
-import { login } from "@features/dataSlices/auth/authSlice";
+import { login, loadUserData } from "@features/dataSlices/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 interface LoginModalProps {
   open: boolean;
   onClose: () => void;
+  onOpenSignup: () => void;
 }
 
 const style = {
@@ -32,7 +42,11 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  open,
+  onClose,
+  onOpenSignup,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const authError = useSelector((state: RootState) => state.auth.error);
   const isAuthenticated = useSelector(
@@ -42,18 +56,40 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState<"applicant" | "company">(
+    "applicant"
+  );
 
   useEffect(() => {
-    // Close the modal and navigate after login if authenticated
     if (isAuthenticated && open) {
       onClose();
       navigate("/matching");
     }
   }, [isAuthenticated, open, navigate, onClose]);
 
+  const handleLogin = async () => {
+    const resultAction = await dispatch(login({ email, password, userType }));
+
+    if (login.fulfilled.match(resultAction)) {
+      const email = resultAction.payload.email;
+      const userType = resultAction.payload.isCompany ? "company" : "applicant";
+      dispatch(loadUserData({ email, userType }));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    await handleLogin();
+  };
+
+  const handleUserTypeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newUserType: "applicant" | "company" | null
+  ) => {
+    if (newUserType !== null) {
+      setUserType(newUserType);
+      console.log(newUserType);
+    }
   };
 
   return (
@@ -74,16 +110,32 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
             component="h2"
             sx={{ textAlign: "center", mb: 2 }}
           >
-            Login
+            Log in to Mint
           </Typography>
           {authError && (
             <Typography color="error" sx={{ mb: 2, textAlign: "center" }}>
               {authError}
             </Typography>
           )}
+          {/* User type toggle */}
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <ToggleButtonGroup
+              value={userType}
+              exclusive
+              onChange={handleUserTypeChange}
+              aria-label="login type"
+            >
+              <ToggleButton value="applicant" aria-label="user login">
+                User
+              </ToggleButton>
+              <ToggleButton value="company" aria-label="company login">
+                Company
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
           <form onSubmit={handleSubmit}>
             <Box>
-              <Typography>E-Mail</Typography>
+              <Typography>Email</Typography>
               <input
                 type="email"
                 value={email}
@@ -104,6 +156,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
               Login
             </Button>
           </form>
+          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+            Don’t have an account yet?{" "}
+            <Link component="button" variant="body2" onClick={onOpenSignup}>
+              Sign up for Mint
+            </Link>
+          </Typography>
         </Box>
       </Grow>
     </Modal>
