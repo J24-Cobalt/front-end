@@ -38,6 +38,7 @@ export default function MatchingPage() {
   const profiles: (Profile | CompanyProfile)[] =
     userType === "company" ? applicantProfiles : companyProfiles;
 
+
   const [currentIndex, setCurrentIndex] = useState(profiles.length - 1);
   const [showConfetti, setShowConfetti] = useState(false);
   const currentIndexRef = useRef(currentIndex);
@@ -46,7 +47,8 @@ export default function MatchingPage() {
     () =>
       Array(profiles.length)
         .fill(0)
-        .map(() => React.createRef<typeof TinderCard>()),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map(() => React.createRef<any>()),
     [profiles.length]
   );
 
