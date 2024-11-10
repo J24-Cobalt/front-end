@@ -138,7 +138,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
               <Typography>Email</Typography>
               <input
                 type="email"
-                value={email}
+                value={"alice.johnson@uni.edu"}
                 onChange={(e) => setEmail(e.target.value)}
                 style={inputStyle}
               />
@@ -147,7 +147,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
               <Typography>Password</Typography>
               <input
                 type="password"
-                value={password}
+                value={"securepassword98765"}
                 onChange={(e) => setPassword(e.target.value)}
                 style={inputStyle}
               />
