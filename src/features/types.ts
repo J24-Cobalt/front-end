@@ -49,10 +49,10 @@ export interface data {
   jobs: Job[];
   logo: string;
   description: string;
-  hasMatchedCompanies: HasMatchedCompanies[];
-  hasMatchedApplicants: HasMatchedApplicants[];
-  hasMatchesWApplicants: HasMatchesWApplicants[];
-  hasMatchesWCompanies: HasMatchesWCompanies[];
+  hasMatchedCompanies?: HasMatchedCompanies[];
+  hasMatchedApplicants?: HasMatchedApplicants[];
+  hasMatchesWApplicants?: HasMatchesWApplicants[];
+  hasMatchesWCompanies?: HasMatchesWCompanies[];
 }
 
 // Interface for work experience entries
@@ -116,6 +116,7 @@ export interface HasMatchesWCompanies {
   name: string;
   email: string;
   password: string;
+  sdt_profile: SdtProfile;
   culture_metric: SdtProfile;
   jobs: Job[];
   description: string;

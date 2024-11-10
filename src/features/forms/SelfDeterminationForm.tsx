@@ -48,7 +48,6 @@ const SelfDeterminationForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Submitted data:", formData);
   };
 
   return (
