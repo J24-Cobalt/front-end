@@ -2,7 +2,7 @@
 import { CompanyData, HasMatchedCompanies, HasMatchesWCompanies, UserData } from "@features/types";
 import axios from "axios";
 
-const API_BASE_URL = "http://136.244.85.199:8001";
+const API_BASE_URL = "https://j24.flippo.cc";
 
 // Register user (applicant)
 export const registerUser = async (userData: {
