@@ -43,7 +43,7 @@ export default function Applicants() {
                   boxShadow: 3,
                   transition: "box-shadow 0.3s ease-in-out",
                 }}
-                onClick={() => handleCardClick(applicant.id)}
+                onClick={() => handleCardClick(index)}
               >
                 <CardContent>
                   <Stack direction="row" spacing={3} alignItems="center">

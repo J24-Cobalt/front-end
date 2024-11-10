@@ -2,7 +2,7 @@
 import { CompanyData, HasMatchedCompanies, HasMatchesWCompanies, UserData } from "@features/types";
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8001";
+const API_BASE_URL = "https://j24.flippo.cc";
 
 // Register user (applicant)
 export const registerUser = async (userData: {
@@ -78,7 +78,6 @@ export const fetchHasMatchData = async (
       `${API_BASE_URL}/matching/applicant/${email}`
     );
     const hasMatchData = response.data || []; // Access data directly from response
-    console.log(hasMatchData);
 
     // Ensure the result is an array of matched companies
     return hasMatchData as HasMatchesWCompanies[];

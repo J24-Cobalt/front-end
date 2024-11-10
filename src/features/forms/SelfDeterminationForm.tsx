@@ -44,6 +44,7 @@ const SelfDeterminationForm = () => {
   const handleSliderChange =
     (field: string) => (event: Event, newValue: number | number[]) => {
       setFormData({ ...formData, [field]: newValue });
+      console.log(event);
 
       // Show the value label temporarily
       setShowValueLabel((prev) => ({ ...prev, [field]: true }));
@@ -64,7 +65,6 @@ const SelfDeterminationForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Submitted data:", formData);
   };
 
   return (

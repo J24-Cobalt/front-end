@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
 import { Colors } from "@app/styles";
 import LoginModal from "@features/landingPage/components/LoginModal";
@@ -11,8 +10,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
 import mintLogo from '../../assets/mint-logo.png'; 
-
-const pages = ["Home"];
 
 export default function Navbar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
