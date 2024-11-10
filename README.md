@@ -1,6 +1,6 @@
 For login:
-alice.johnson@uni.edu
-securepassword98765
+email: alice.johnson@uni.edu
+password: securepassword98765
 
 # React + TypeScript + Vite
 
