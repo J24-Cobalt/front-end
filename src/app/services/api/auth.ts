@@ -78,6 +78,7 @@ export const fetchHasMatchData = async (
       `${API_BASE_URL}/matching/applicant/${email}`
     );
     const hasMatchData = response.data || []; // Access data directly from response
+    console.log(hasMatchData);
 
     // Ensure the result is an array of matched companies
     return hasMatchData as HasMatchesWCompanies[];
