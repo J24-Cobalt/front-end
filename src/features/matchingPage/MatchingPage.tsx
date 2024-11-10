@@ -3,21 +3,40 @@ import { Box, Typography, Stack } from "@mui/material";
 import TinderCard from "react-tinder-card";
 import Confetti from "react-confetti";
 import AnonymizedUserProfile from "./components/AnoymizedUserProfile";
-import AnonymizedCompanyProfile from "./components/AnonymizedCompanyProfile"; // Import company profile component
+import AnonymizedCompanyProfile from "./components/AnonymizedCompanyProfile";
 import "./MatchingPage.css";
 import { useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
 import AppButton from "@features/ui/AppButton";
 import { applicantProfiles, companyProfiles } from "./data";
 
+// Define interfaces for Profile and CompanyProfile
+interface Profile {
+  name: string;
+  title: string;
+  priorities: string;
+  experience: string;
+  skills: string;
+  education: string;
+}
+
+interface CompanyProfile {
+  sdt_profile: {
+    autonomy_support: number;
+    competence_support: number;
+    relatedness_support: number;
+    growth_and_personal_alignment: number;
+  };
+  title: string;
+  description: string;
+}
+
 export default function MatchingPage() {
-  // Determine user type from Redux (either "applicant" or "company")
   const userType = useSelector((state: RootState) => state.auth.userType);
 
-  // Choose profiles dataset and component based on user type
-  const profiles = userType === "company" ? applicantProfiles : companyProfiles;
-  const ProfileComponent =
-    userType === "company" ? AnonymizedUserProfile : AnonymizedCompanyProfile;
+  // Use type-specific profiles based on userType
+  const profiles: (Profile | CompanyProfile)[] =
+    userType === "company" ? applicantProfiles : companyProfiles;
 
   const [currentIndex, setCurrentIndex] = useState(profiles.length - 1);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -27,7 +46,7 @@ export default function MatchingPage() {
     () =>
       Array(profiles.length)
         .fill(0)
-        .map(() => React.createRef<any>()),
+        .map(() => React.createRef<typeof TinderCard>()),
     [profiles.length]
   );
 
@@ -83,13 +102,18 @@ export default function MatchingPage() {
             <TinderCard
               ref={childRefs[index]}
               className="swipe"
-              key={profile.name}
+              key={index}
               onSwipe={(dir) => swiped(dir, index)}
               preventSwipe={["up", "down"]}
             >
               <div className="card">
-                {/* Render ProfileComponent conditionally based on userType */}
-                <ProfileComponent profile={profile} />
+                {userType === "company" ? (
+                  <AnonymizedUserProfile profile={profile as Profile} />
+                ) : (
+                  <AnonymizedCompanyProfile
+                    profile={profile as CompanyProfile}
+                  />
+                )}
               </div>
             </TinderCard>
           ))}
@@ -103,18 +127,18 @@ export default function MatchingPage() {
             justifyContent: "center",
           }}
         >
-            <Typography
-              variant="h4"
-              sx={{
+          <Typography
+            variant="h4"
+            sx={{
               textAlign: "center",
               color: "black",
               fontWeight: "bold",
               mt: 4,
-              textShadow: "1px 1px 6px rgba(0, 128, 0, 0.1)", // Primary green text shadow
-              }}
-            >
-              All caught up. Check back soon!
-            </Typography>
+              textShadow: "1px 1px 6px rgba(0, 128, 0, 0.1)",
+            }}
+          >
+            All caught up. Check back soon!
+          </Typography>
         </Box>
       )}
       <Box

@@ -24,6 +24,8 @@ export default function UserProfile() {
   const educationList = userData?.education || [];
   const workExperienceList = userData?.work_experience || [];
 
+  console.log(avatarUrl);
+
   return (
     <Box
       sx={{

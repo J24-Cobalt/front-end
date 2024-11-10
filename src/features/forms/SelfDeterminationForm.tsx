@@ -34,6 +34,7 @@ const SelfDeterminationForm = () => {
   const handleSliderChange =
     (field: string) => (event: Event, newValue: number | number[]) => {
       setFormData({ ...formData, [field]: newValue });
+      console.log(event);
     };
 
   const handleInputChange =
