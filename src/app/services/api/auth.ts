@@ -2,7 +2,7 @@
 import { CompanyData, HasMatchedCompanies, HasMatchesWCompanies, UserData } from "@features/types";
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8001";
+const API_BASE_URL = "http://[2001:19f0:6c00:128e:5400:5ff:fe29:3d8f]:8001/";
 
 // Register user (applicant)
 export const registerUser = async (userData: {
